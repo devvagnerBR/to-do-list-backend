@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "vercel-build": "npx prisma migrate deploy",
+    "vercel-build": "npx prisma migrate deploy && npx prisma generate",
     "dev": "ts-node-dev ./src/index.ts"
   },
   "keywords": [],
