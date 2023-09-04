@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "vercel-build": "npx prisma migrate deploy && npm build",
+    "vercel-build": "npx prisma migrate deploy",
     "dev": "ts-node-dev ./src/index.ts"
   },
   "keywords": [],
