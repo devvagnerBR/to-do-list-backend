@@ -35,6 +35,7 @@ export class UserController {
             res.status( 200 ).send( result );
 
         } catch ( error: any ) {
+            
             if ( error instanceof CustomError ) {
                 res.status( error.statusCode ).send( error.message );
             } else {

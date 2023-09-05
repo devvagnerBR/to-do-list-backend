@@ -14,11 +14,12 @@ CREATE TABLE "user" (
 CREATE TABLE "task" (
     "id" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
-    "status" BOOLEAN NOT NULL,
+    "status" BOOLEAN NOT NULL DEFAULT false,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "completed_at" TIMESTAMP(3) NOT NULL,
+    "completed_at" TIMESTAMP(3),
     "task" TEXT NOT NULL,
     "tag" TEXT NOT NULL,
+    "deleted" BOOLEAN NOT NULL DEFAULT false,
 
     CONSTRAINT "task_pkey" PRIMARY KEY ("id")
 );

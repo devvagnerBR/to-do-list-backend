@@ -1,4 +1,5 @@
-import { User } from "@prisma/client";
+import { User } from "@prisma/client"
+
 import { prismaClient } from "./BaseDatabase";
 
 export class UserData {
