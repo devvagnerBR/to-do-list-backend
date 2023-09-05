@@ -32,6 +32,5 @@ model Task {
 
     @@map("task")
 
+
 }
-
-
