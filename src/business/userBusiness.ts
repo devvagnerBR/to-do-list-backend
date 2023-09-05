@@ -39,8 +39,11 @@ export class UserBusiness {
 
         try {
 
-            if ( !token ) throw new CustomError( 404, "user not found" );
+            if ( !token ) throw new CustomError( 404, "token not informed" );
             if ( typeof token !== "string" ) throw new CustomError( 404, "token needs to be a string" );
+
+            const checkUser = await this.UserData.checkIfUserExists( token );
+            if ( !checkUser ) throw new CustomError( 404, "user not found" )
 
             const result = await this.UserData.getUserByID( token );
             return result;
@@ -78,11 +81,11 @@ export class UserBusiness {
 
             const result = await this.UserData.getThe10UsersWithTheHighestScore();
             return result;
-            
+
         } catch ( error: any ) {
             throw new CustomError( 500, error.message );
         }
-    
+
     }
 
 
