@@ -13,3 +13,6 @@
 ✅ get tasks from user;
 ✅ change the task status;
 ✅ delete task;
+
+
+⭐ fazer verificação se nome da task já existe;

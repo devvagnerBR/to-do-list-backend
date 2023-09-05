@@ -131,4 +131,24 @@ export class TaskData {
         }
 
     }
+
+
+    checkIfTaskAlreadyExist = async ( taskName: string, token: string ) => {
+
+        try {
+
+            const result = await prismaClient.task.findFirst( {
+                where: { task: taskName, userId: token }
+            } )
+
+            if ( result ) return true;
+            else return false;
+
+        } catch ( error: any ) {
+            throw new CustomError( 500, error.message )
+        }
+
+
+
+    }
 }

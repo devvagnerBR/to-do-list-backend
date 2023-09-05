@@ -47,8 +47,13 @@ export class TaskBusiness {
             if ( typeof tag !== "string" || typeof task !== "string" || typeof token !== "string"
             ) throw new CustomError( 404, "only text type is accepted" )
 
+            const duplicatedTask = await this.taskData.checkIfTaskAlreadyExist( task, token );
+            if ( duplicatedTask ) throw new CustomError( 404, "there is already a task with that name" );
+
             const NewTaskModel: TaskModel = new TaskModel( token, task, tag );
             await this.taskData.createTask( NewTaskModel );
+
+
 
         } catch ( error: any ) {
             throw new CustomError( 404, error.message )
@@ -98,5 +103,6 @@ export class TaskBusiness {
         }
 
     }
+
 
 }
