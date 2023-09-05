@@ -70,4 +70,22 @@ export class UserData {
             throw new Error( error.message )
         }
     }
+
+
+    getThe10UsersWithTheHighestScore = async () => {
+
+        try {
+            const topUsers: User[] = await prismaClient.user.findMany( {
+                orderBy: {
+                    tasks_completed_quantity: 'desc'
+                },
+                take: 10
+            } )
+
+            return topUsers;
+
+        } catch ( error: any ) {
+            throw new Error( error.message )
+        }
+    }
 }

@@ -14,7 +14,7 @@ export class UserBusiness {
 
         try {
 
-            if ( !username || !password ) throw new CustomError( 400, "Invalid Credentials" );
+            if ( !username || !password ) throw new CustomError( 404, "one or more fields are empty" );
             if ( username.length < 3 ) throw new CustomError( 400, "username field must be greater than 3" );
             if ( password.length < 6 ) throw new CustomError( 400, "Password must contain 6 characters or more" );
 
@@ -34,7 +34,6 @@ export class UserBusiness {
         }
 
     }
-
 
     getUserById = async ( token: string ) => {
 
@@ -71,5 +70,20 @@ export class UserBusiness {
         }
 
     }
+
+
+    getThe10UsersWithTheHighestScore = async () => {
+
+        try {
+
+            const result = await this.UserData.getThe10UsersWithTheHighestScore();
+            return result;
+            
+        } catch ( error: any ) {
+            throw new CustomError( 500, error.message );
+        }
+    
+    }
+
 
 }

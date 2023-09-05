@@ -8,6 +8,7 @@ const userController: UserController = new UserController( userBusiness );
 
 export const userRouter = express.Router();
 
-userRouter.post( "/signup", userController.signup )
-userRouter.get( "/user", userController.getUserByID )
-userRouter.post( "/login", userController.login )
+userRouter.post( "/signup", userController.signup );
+userRouter.get( "/user", userController.getUserByID );
+userRouter.post( "/login", userController.login );
+userRouter.get( "/rank", userController.getThe10UsersWithTheHighestScore );

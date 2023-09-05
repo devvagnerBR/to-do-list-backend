@@ -12,7 +12,7 @@ export class TaskData {
         try {
 
             const tasks: Task[] = await prismaClient.task.findMany( {
-                where: { userId: token },
+                where: { userId: token, deleted: false },
                 orderBy: { created_at: 'desc' }
             } )
 
@@ -22,7 +22,6 @@ export class TaskData {
             throw new CustomError( 500, error.message )
         }
     }
-
 
     createTask = async ( newTask: TaskModel ) => {
 
@@ -147,8 +146,6 @@ export class TaskData {
         } catch ( error: any ) {
             throw new CustomError( 500, error.message )
         }
-
-
 
     }
 }

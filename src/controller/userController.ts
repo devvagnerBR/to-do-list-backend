@@ -62,4 +62,19 @@ export class UserController {
         }
 
     }
+
+
+    getThe10UsersWithTheHighestScore = async ( req: Request, res: Response ) => {
+
+        try {
+            const result = await this.userBusiness.getThe10UsersWithTheHighestScore();
+            res.status( 200 ).send( result );
+        } catch ( error: any ) {
+            if ( error instanceof CustomError ) {
+                res.status( error.statusCode ).send( error.message );
+            } else {
+                res.status( 404 ).send( error.message );
+            }
+        }
+    }
 }
