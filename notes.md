@@ -15,3 +15,4 @@
 ✅ delete task
 
 
+npm install -g vercel
