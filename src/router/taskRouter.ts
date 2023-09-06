@@ -12,6 +12,8 @@ const taskController: TaskController = new TaskController( taskBusiness );
 export const taskRouter = express.Router();
 
 taskRouter.get( "/tasks", taskController.getAllTasks );
+
 taskRouter.post( "/task", taskController.createTask );
 taskRouter.put( "/task", taskController.changeTheTaskStatus );
 taskRouter.delete( "/task", taskController.deleteTask );
+taskRouter.get( "/task", taskController.getDeletedTasks );

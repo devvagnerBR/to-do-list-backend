@@ -26,6 +26,25 @@ export class TaskController {
         }
     }
 
+    getDeletedTasks = async ( req: Request, res: Response ) => {
+
+        try {
+
+            const token: string = req.headers.authorization as string;
+            const deletedTasks: string | Task[] = await this.taskBusiness.getDeletedTasks( token );
+            res.status( 200 ).send( deletedTasks );
+
+        } catch ( error: any ) {
+            if ( error instanceof CustomError ) {
+                res.status( error.statusCode ).send( error.message );
+            } else {
+                res.status( 404 ).send( error.message );
+            }
+        }
+
+    }
+
+
     createTask = async ( req: Request, res: Response ) => {
 
         try {
@@ -84,7 +103,7 @@ export class TaskController {
 
     }
 
-    
+
 
 
 }

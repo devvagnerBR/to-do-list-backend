@@ -36,6 +36,23 @@ export class TaskBusiness {
 
     }
 
+    getDeletedTasks = async ( token: string ): Promise<string | Task[]> => {
+
+
+        try {
+
+            if ( !token ) throw new CustomError( 409, "user is not logged in" );
+            const userExist = await this.userData.checkIfUserExists( token );
+            if ( !userExist ) throw new CustomError( 404, "user not found" );
+
+            const deletedTasks = await this.taskData.getDeletedTasks( token );
+            if ( deletedTasks.length <= 0 ) throw new CustomError( 404, "you still don't have any tasks deleted" )
+            return deletedTasks;
+
+        } catch ( error: any ) {
+            throw new CustomError( 404, error.message )
+        }
+    }
 
     createTask = async ( task: string, tag: string, token: string ) => {
 

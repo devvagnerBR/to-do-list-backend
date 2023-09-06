@@ -148,4 +148,19 @@ export class TaskData {
         }
 
     }
+
+    getDeletedTasks = async ( token: string ) => {
+
+        try {
+            const tasks: Task[] = await prismaClient.task.findMany( {
+                where: { userId: token, deleted: true },
+                orderBy: { created_at: 'desc' },
+            } )
+
+            return tasks;
+
+        } catch ( error: any ) {
+            throw new CustomError( 500, error.message )
+        }
+    }
 }
