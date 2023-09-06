@@ -17,11 +17,9 @@ export class UserController {
             res.status( 200 ).send( { message: "user created successfully", token: result } )
 
         } catch ( error: any ) {
-            if ( error instanceof CustomError ) {
-                res.status( error.statusCode ).send( error.message );
-            } else {
-                res.status( 404 ).send( error.message );
-            }
+            if ( res.statusCode === 200 ) res.status( 500 ).send( { message: "Internal server error" } )
+            if ( error instanceof CustomError ) res.status( error.statusCode ).send( error.message );
+            else res.status( 404 ).send( error.message );
         }
     }
 
@@ -35,31 +33,24 @@ export class UserController {
             res.status( 200 ).send( result );
 
         } catch ( error: any ) {
-            
-            if ( error instanceof CustomError ) {
-                res.status( error.statusCode ).send( error.message );
-            } else {
-                res.status( 404 ).send( error.message );
-            }
+            if ( res.statusCode === 200 ) res.status( 500 ).send( { message: "Internal server error" } )
+            if ( error instanceof CustomError ) res.status( error.statusCode ).send( error.message );
+            else res.status( 404 ).send( error.message );
         }
 
     }
 
-
     login = async ( req: Request, res: Response ) => {
 
         try {
-
             const { username, password } = req.body;
             const result: string = await this.userBusiness.login( username, password )
             res.status( 200 ).send( { token: result } );
 
         } catch ( error: any ) {
-            if ( error instanceof CustomError ) {
-                res.status( error.statusCode ).send( error.message );
-            } else {
-                res.status( 404 ).send( error.message );
-            }
+            if ( res.statusCode === 200 ) res.status( 500 ).send( { message: "Internal server error" } )
+            if ( error instanceof CustomError ) res.status( error.statusCode ).send( error.message );
+            else res.status( 404 ).send( error.message );
         }
 
     }
@@ -70,12 +61,11 @@ export class UserController {
         try {
             const result = await this.userBusiness.getThe10UsersWithTheHighestScore();
             res.status( 200 ).send( result );
+
         } catch ( error: any ) {
-            if ( error instanceof CustomError ) {
-                res.status( error.statusCode ).send( error.message );
-            } else {
-                res.status( 404 ).send( error.message );
-            }
+            if ( res.statusCode === 200 ) res.status( 500 ).send( { message: "Internal server error" } )
+            if ( error instanceof CustomError ) res.status( error.statusCode ).send( error.message );
+            else res.status( 404 ).send( error.message );
         }
     }
 }

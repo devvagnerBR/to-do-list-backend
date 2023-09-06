@@ -15,7 +15,7 @@ export class TaskModel {
 
     ) {
 
-        this.id = IdGenerator()
+        this.id = new IdGenerator().generateID()
         this.status = false
     }
 

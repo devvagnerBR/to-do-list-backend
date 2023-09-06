@@ -3,9 +3,10 @@ import { TaskBusiness } from '../business/taskBusiness';
 import { TaskData } from "../data/taskData";
 import { UserData } from "../data/userData";
 import { TaskController } from '../controller/taskController';
+import { Authenticator } from "../services/authenticator";
 
 
-const taskBusiness: TaskBusiness = new TaskBusiness( new TaskData, new UserData );
+const taskBusiness: TaskBusiness = new TaskBusiness( new TaskData, new UserData, new Authenticator );
 const taskController: TaskController = new TaskController( taskBusiness );
 
 
