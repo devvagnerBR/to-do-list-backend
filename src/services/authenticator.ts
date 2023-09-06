@@ -12,7 +12,7 @@ export class Authenticator {
 
     generateToken = ( payload: AuthenticationData ) => {
         return jwt.sign( payload, process.env.JWT_KEY as jwt.Secret, {
-            expiresIn: "5d"
+            expiresIn: process.env.JWT_EXPIRES
         } )
     }
 

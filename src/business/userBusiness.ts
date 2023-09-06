@@ -3,6 +3,7 @@ import { IdGenerator } from '../services/IdGenerator';
 import { CustomError } from '../models/customError';
 import { Authenticator } from '../services/authenticator';
 import { AuthenticationData } from '../types/Authenticator';
+import { HashManager } from '../services/hashManager';
 
 
 export class UserBusiness {
@@ -12,6 +13,7 @@ export class UserBusiness {
         private userData: UserData,
         private idGenerator: IdGenerator,
         private authenticator: Authenticator,
+        private hashManager: HashManager
     ) { }
 
     signup = async ( username: string, password: string ) => {
@@ -29,7 +31,9 @@ export class UserBusiness {
 
             const id: string = this.idGenerator.generateID()
 
-            await this.userData.signup( id, username.toLocaleLowerCase(), password );
+            const passwordAsHash = await this.hashManager.createHash( password );
+
+            await this.userData.signup( id, username.toLocaleLowerCase(), passwordAsHash );
 
             const token: string = this.authenticator.generateToken( { id: id } );
             return token;
@@ -70,13 +74,15 @@ export class UserBusiness {
 
             const user = await this.userData.getUserByUsername( username );
             if ( !user ) throw new CustomError( 403, 'user not found' );
-            if ( user.password !== password ) throw new CustomError( 400, 'Invalid Credentials' );
+
+            const validatePassword = await this.hashManager.compareHash( password, user.password )
+            if ( !validatePassword ) throw new CustomError( 401, 'incorrect password' );
 
             const token: string = this.authenticator.generateToken( { id: user.id } )
             return token;
 
         } catch ( error: any ) {
-            throw new CustomError( 500, error.message );
+            throw new CustomError( error.statusCode, error.message )
         }
 
     }

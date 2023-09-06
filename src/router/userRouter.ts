@@ -4,9 +4,16 @@ import { UserData } from "../data/userData";
 import { UserController } from "../controller/userController";
 import { IdGenerator } from "../services/IdGenerator";
 import { Authenticator } from "../services/authenticator";
+import { HashManager } from "../services/hashManager";
 
 
-const userBusiness: UserBusiness = new UserBusiness( new UserData(), new IdGenerator(), new Authenticator() );
+const userBusiness: UserBusiness = new UserBusiness(
+    new UserData(),
+    new IdGenerator(),
+    new Authenticator(),
+    new HashManager()
+);
+
 const userController: UserController = new UserController( userBusiness );
 
 export const userRouter = express.Router();
