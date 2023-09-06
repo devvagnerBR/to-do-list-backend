@@ -7,6 +7,7 @@ export class UserBusiness {
 
     constructor(
         private UserData: UserData,
+        private idGenerator: IdGenerator
 
     ) { }
 
@@ -23,7 +24,7 @@ export class UserBusiness {
             if ( hasUsername ) throw new CustomError( 409, "username already in use" );
             if ( username.includes( " " ) ) throw new CustomError( 400, "username cannot contain white space" );
 
-            const id: string = IdGenerator();
+            const id: string = this.idGenerator.generateID()
             await this.UserData.signup( id, username.toLocaleLowerCase(), password );
 
             const token: string = id
