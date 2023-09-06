@@ -30,16 +30,16 @@ export class TaskData {
             await prismaClient.task.create( {
 
                 data: {
-                    id: newTask.id,
-                    userId: newTask.userId,
-                    status: newTask.status,
-                    task: newTask.task,
-                    tag: newTask.tag,
+                    id: newTask.getId(),
+                    userId: newTask.getUserId(),
+                    status: newTask.getStatus(),
+                    task: newTask.getTaskName(),
+                    tag: newTask.getTag(),
                 }
             } )
 
             await prismaClient.user.update( {
-                where: { id: newTask.userId },
+                where: { id: newTask.getUserId() },
                 data: {
                     tasks_quantity: {
                         increment: 1

@@ -72,8 +72,7 @@ export class TaskBusiness {
             const duplicatedTask = await this.taskData.checkIfTaskAlreadyExist( task, tokenData.id );
             if ( duplicatedTask ) throw new CustomError( 404, "there is already a task with that name" );
 
-            const NewTaskModel: TaskModel = new TaskModel( tokenData.id, task, tag );
-            await this.taskData.createTask( NewTaskModel );
+            await this.taskData.createTask( new TaskModel( tokenData.id, task, tag ) );
 
         } catch ( error: any ) {
             throw new CustomError( 404, error.message )

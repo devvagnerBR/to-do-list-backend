@@ -53,7 +53,6 @@ export class UserController {
 
 
     getThe10UsersWithTheHighestScore = async ( req: Request, res: Response ) => {
-
         try {
             const result = await this.userBusiness.getThe10UsersWithTheHighestScore();
             res.status( 200 ).send( result );

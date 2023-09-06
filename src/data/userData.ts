@@ -1,19 +1,22 @@
-import { User } from "@prisma/client"
 
+
+import { User } from "@prisma/client";
 import { prismaClient } from "./BaseDatabase";
+import { UserModel } from "../models/userModel";
 
 export class UserData {
 
 
-    signup = async ( id: string, username: string, password: string ) => {
+    signup = async ( user: UserModel ) => {
+
 
         try {
 
             await prismaClient.user.create( {
                 data: {
-                    id,
-                    username,
-                    password,
+                    id: user.getId(),
+                    username: user.getUsername(),
+                    password: user.getPassword(),
                 }
             } )
 

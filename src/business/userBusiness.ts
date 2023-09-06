@@ -4,6 +4,7 @@ import { CustomError } from '../models/customError';
 import { Authenticator } from '../services/authenticator';
 import { AuthenticationData } from '../types/Authenticator';
 import { HashManager } from '../services/hashManager';
+import { UserModel } from '../models/userModel';
 
 
 export class UserBusiness {
@@ -33,7 +34,9 @@ export class UserBusiness {
 
             const passwordAsHash = await this.hashManager.createHash( password );
 
-            await this.userData.signup( id, username.toLocaleLowerCase(), passwordAsHash );
+            await this.userData.signup( new UserModel( id, username, passwordAsHash ) );
+
+            // await this.userData.signup( id, username.toLocaleLowerCase(), passwordAsHash );
 
             const token: string = this.authenticator.generateToken( { id: id } );
             return token;
