@@ -11,6 +11,7 @@ import { AuthenticationData } from '../types/Authenticator';
 export class TaskBusiness {
 
 
+
     constructor(
         private taskData: TaskData,
         private userData: UserData,
